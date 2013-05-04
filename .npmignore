@@ -1,0 +1,8 @@
+.travis*
+Cakefile
+
+src/
+out/*.tester.*
+out/*.test.*
+out/test/
+test/

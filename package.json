@@ -1,0 +1,36 @@
+{
+  "name": "docpad-plugin-teacup",
+  "version": "2.0.0",
+  "description": "DocPad plugin that renders Teacup templates to HTML",
+  "main": "./out/teacup.plugin.js",
+  "scripts": {
+    "test": "node ./out/teacup.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/hurrymaplelad/docpad-plugin-teacup.git"
+  },
+  "keywords": [
+    "docpad",
+    "docpad-plugin",
+    "coffee",
+    "coffeescript",
+    "coffeecup",
+    "coffeekup",
+    "teacup"
+  ],
+  "author": "Adam Hull <adam@hmlad.com>",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/hurrymaplelad/docpad-plugin-teacup/issues"
+  },
+  "dependencies": {
+    "teacup": "~0.2.7"
+  },
+  "peerDependencies": {
+    "docpad": "~6.32"
+  },
+  "devDependencies": {
+    "coffee-script": "~1.6.2"
+  }
+}
