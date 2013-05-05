@@ -19,15 +19,11 @@ module.exports = (BasePlugin) ->
       coffee = require('coffee-script')
       vm = require('vm')
 
-      sandbox =
-        module: exports: {}
-        require: require
-
       # Grab function exported from coffeescript module source 
       template = null
       try
-        vm.runInNewContext(coffee.compile(content), sandbox)
-        template = sandbox.module.exports
+        vm.runInThisContext(coffee.compile(content))
+        template = module.exports
       catch err
         next(err)
 
