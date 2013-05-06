@@ -1,3 +1,13 @@
+fs = require 'fs'
+coffee = require 'coffee-script'
+
+# Wrap the coffeescript module compiler to strip YAML frontmatter
+require.extensions['.coffee'] = (module, filename) ->
+  raw = fs.readFileSync filename, 'utf8'
+  stripped = if raw.charCodeAt(0) is 0xFEFF then raw.substring 1 else raw
+  stripped = stripped.replace /^---[\s\S]+^---/m, ''
+  module._compile coffee.compile(stripped, {filename}), filename
+
 # Export Plugin
 module.exports = (BasePlugin) ->
   # Define Plugin
@@ -14,21 +24,17 @@ module.exports = (BasePlugin) ->
     # Render Teacup
     renderTeacup: (opts, next) ->
       # Prepare
-      {templateData, content} = opts
       {render} = require('teacup')
-      coffee = require('coffee-script')
-      vm = require('vm')
+      {templateData, content} = opts
+      templatePath = opts.file.get('fullPath')
 
-      # Grab function exported from coffeescript module source 
-      template = null
       try
-        vm.runInThisContext(coffee.compile(content))
-        template = module.exports
+        # Grab function exported from coffeescript module source 
+        template = require(templatePath)
+        # Render
+        opts.content = render(template, templateData)
       catch err
         next(err)
-
-      # Render
-      opts.content = render(template, templateData)
 
       # Done
       next()
