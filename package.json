@@ -25,10 +25,13 @@
     "url": "https://github.com/hurrymaplelad/docpad-plugin-teacup/issues"
   },
   "dependencies": {
-    "teacup": "~0.2.7",
     "coffee-script": "~1.6.2"
   },
   "peerDependencies": {
-    "docpad": "~6.32"
+    "docpad": "~6.32",
+    "teacup": "~0.2.7"
+  },
+  "devDependencies": {
+    "teacup": "~0.2.7"
   }
 }
