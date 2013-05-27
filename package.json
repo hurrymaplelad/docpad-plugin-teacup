@@ -1,6 +1,6 @@
 {
   "name": "docpad-plugin-teacup",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "DocPad plugin that renders Teacup templates to HTML",
   "main": "./out/teacup.plugin.js",
   "scripts": {

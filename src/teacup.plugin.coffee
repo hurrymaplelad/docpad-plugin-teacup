@@ -1,12 +1,4 @@
 fs = require 'fs'
-coffee = require 'coffee-script'
-
-# Wrap the coffeescript module compiler to strip YAML frontmatter
-require.extensions['.coffee'] = (module, filename) ->
-  raw = fs.readFileSync filename, 'utf8'
-  stripped = if raw.charCodeAt(0) is 0xFEFF then raw.substring 1 else raw
-  stripped = stripped.replace /^---[\s\S]+^---/m, ''
-  module._compile coffee.compile(stripped, {filename}), filename
 
 # Export Plugin
 module.exports = (BasePlugin) ->
@@ -23,6 +15,14 @@ module.exports = (BasePlugin) ->
 
     # Render Teacup
     renderTeacup: (opts, next) ->
+      coffee = require 'coffee-script'
+      # Wrap the coffeescript module compiler to strip YAML frontmatter
+      require.extensions['.coffee'] = (module, filename) ->
+        raw = fs.readFileSync filename, 'utf8'
+        stripped = if raw.charCodeAt(0) is 0xFEFF then raw.substring 1 else raw
+        stripped = stripped.replace /^---[\s\S]+^---/m, ''
+        module._compile coffee.compile(stripped, {filename}), filename
+
       # Prepare
       {render} = require('teacup')
       {templateData, content} = opts
