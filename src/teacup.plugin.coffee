@@ -30,7 +30,7 @@ module.exports = (BasePlugin) ->
 
       try
         # Grab function exported from coffeescript module source 
-        template = require(templatePath)
+        template = require(templatePath).bind(templateData)
         # Render
         opts.content = render(template, templateData)
       catch err
